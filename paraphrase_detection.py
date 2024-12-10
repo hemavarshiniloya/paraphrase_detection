@@ -52,6 +52,6 @@ if sentence1 and sentence2:
     # Check if sentences are paraphrases based on a threshold
     threshold = 0.8  # You can adjust this value based on your requirements
     if similarity_score > threshold:
-        st.markdown("<h3 style='color: green;'>The sentences are likely paraphrases. <i class='fas fa-check-circle'></i></h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: green;'>The sentences are likely paraphrases. <i class='fas fa-check-circle'></i> 😊</h3>", unsafe_allow_html=True)
     else:
-        st.markdown("<h3 style='color: red;'>The sentences are not paraphrases. <i class='fas fa-times-circle'></i></h3>", unsafe_allow_html=True)
+        st.markdown("<h3 style='color: red;'>The sentences are not paraphrases. <i class='fas fa-times-circle'></i> 😕</h3>", unsafe_allow_html=True)

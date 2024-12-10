@@ -69,9 +69,17 @@ st.markdown("""
         .stButton>button:hover {
             background-color: #45a049; /* Darker green */
         }
-        h1, h3 {
+        h1 {
             text-align: center;
             color: #fff; /* White color for text */
+            background: linear-gradient(90deg, #ff7eb3, #ff758c); /* Gradient background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
+        }
+        h3 {
+            text-align: center;
+            color: #333;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -85,7 +93,7 @@ st.markdown("""
     <div class="balloon" style="left: 90%; top: 80%;"></div>
     """, unsafe_allow_html=True)
 
-# Title with an icon
+# Title with an icon and highlighted style
 st.markdown('<h1><i class="fas fa-exchange-alt"></i> Real-Time Paraphrase Detection</h1>', unsafe_allow_html=True)
 
 st.write("Enter two sentences below to check if they are paraphrases.")
@@ -121,4 +129,3 @@ if st.button("Check Similarity"):
                 "<h3 style='color: red;'>"
                 "<i class='fas fa-times-circle'></i> The sentences are not paraphrases. 😕"
                 "</h3>", unsafe_allow_html=True)
-

@@ -25,13 +25,37 @@ st.markdown("""
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     """, unsafe_allow_html=True)
 
-# Custom background styling
+# Custom background styling with animated balloon effect
 st.markdown("""
     <style>
         body {
-            background: linear-gradient(135deg, #a8c0ff, #3f2b96); /* Light gradient */
+            background-color: #f0f8ff; /* Light blue */
             color: #333;
             font-family: 'Arial', sans-serif;
+            overflow: hidden; /* Prevent scrollbars */
+        }
+        .balloon {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background-color: #FF6347; /* Balloon color */
+            border-radius: 50%;
+            animation: floatUp 10s linear infinite;
+            opacity: 0.8;
+        }
+        .balloon:nth-child(1) { left: 10%; animation-delay: 0s; }
+        .balloon:nth-child(2) { left: 30%; animation-delay: 2s; }
+        .balloon:nth-child(3) { left: 50%; animation-delay: 4s; }
+        .balloon:nth-child(4) { left: 70%; animation-delay: 6s; }
+        .balloon:nth-child(5) { left: 90%; animation-delay: 8s; }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+            }
+            100% {
+                transform: translateY(-100vh);
+            }
         }
         .stButton>button {
             background-color: #4CAF50; /* Green button */
@@ -50,6 +74,15 @@ st.markdown("""
             color: #fff; /* White color for text */
         }
     </style>
+    """, unsafe_allow_html=True)
+
+# Add balloon elements to the page
+st.markdown("""
+    <div class="balloon" style="left: 10%; top: 20%;"></div>
+    <div class="balloon" style="left: 30%; top: 40%;"></div>
+    <div class="balloon" style="left: 50%; top: 30%;"></div>
+    <div class="balloon" style="left: 70%; top: 60%;"></div>
+    <div class="balloon" style="left: 90%; top: 80%;"></div>
     """, unsafe_allow_html=True)
 
 # Title with an icon

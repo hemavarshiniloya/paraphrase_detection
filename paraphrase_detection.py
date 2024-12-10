@@ -20,7 +20,7 @@ def cosine_similarity(embedding1, embedding2):
     cos_sim = F.cosine_similarity(embedding1, embedding2)
     return cos_sim.item()
 
-# Add Font Awesome for icons
+# Adding Font Awesome for icons
 st.markdown("""
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     """, unsafe_allow_html=True)
@@ -78,24 +78,29 @@ st.markdown("""
                 transform: translateY(-100vh);
             }
         }
-
-        .sad-face {
-            position: absolute;
-            top: 20%;
-            left: 50%;
-            transform: translate(-50%, 0);
-            font-size: 50px;
-            animation: bounce 1s ease-in-out infinite;
-            opacity: 0.8;
+        .stButton>button {
+            background-color: #4CAF50; /* Green button */
+            color: white;
+            border-radius: 8px;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
         }
-
-        @keyframes bounce {
-            0%, 100% {
-                top: 20%;
-            }
-            50% {
-                top: 40%;
-            }
+        .stButton>button:hover {
+            background-color: #45a049; /* Darker green */
+        }
+        h1 {
+            text-align: center;
+            color: #fff; /* White color for text */
+            background: linear-gradient(90deg, #ff7eb3, #ff758c); /* Gradient background */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
+        }
+        h3 {
+            text-align: center;
+            color: #333;
         }
     </style>
     """, unsafe_allow_html=True)
@@ -145,5 +150,3 @@ if st.button("Check Similarity"):
                 "<h3 style='color: red;'>"
                 "<i class='fas fa-times-circle'></i> The sentences are not paraphrases. 😕"
                 "</h3>", unsafe_allow_html=True)
-            st.markdown(
-                "<div class='sad-face'>😢</div>", unsafe_allow_html=True)

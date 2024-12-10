@@ -36,8 +36,8 @@ st.write("Enter two sentences below to check if they are paraphrases.")
 sentence1 = st.text_input("Enter the first sentence:")
 sentence2 = st.text_input("Enter the second sentence:")
 
-# Add a button with an icon to trigger the similarity check
-if st.button("Check Similarity <i class='fas fa-search'></i>", unsafe_allow_html=True):
+# Create a button using HTML/CSS for the "Check Similarity" action
+if st.markdown("<button style='background-color: #008CBA; color: white; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;'><i class='fas fa-search'></i> Check Similarity</button>", unsafe_allow_html=True):
     if sentence1 and sentence2:
         # Display a progress bar while processing
         with st.spinner("Calculating similarity..."):

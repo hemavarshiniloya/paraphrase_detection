@@ -2,6 +2,8 @@ import streamlit as st
 from transformers import BertTokenizer, BertModel
 import torch
 import torch.nn.functional as F
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Load pre-trained BERT model and tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
@@ -27,6 +29,9 @@ st.write("Enter two sentences below to check if they are paraphrases.")
 sentence1 = st.text_input("Enter the first sentence:")
 sentence2 = st.text_input("Enter the second sentence:")
 
+# Slider for dynamic threshold
+threshold = st.slider("Set similarity threshold:", 0.5, 1.0, 0.8)
+
 if sentence1 and sentence2:
     # Get embeddings for the input sentences
     embedding1 = get_embeddings(sentence1)
@@ -38,8 +43,15 @@ if sentence1 and sentence2:
     # Display similarity score
     st.write(f"Cosine Similarity Score: {similarity_score:.2f}")
 
-    # Check if sentences are paraphrases based on a threshold
-    threshold = 0.8  # You can adjust this value based on your requirements
+    # Display a bar chart for visualization
+    fig, ax = plt.subplots()
+    ax.bar(['Similarity Score'], [similarity_score], color='skyblue')
+    ax.set_ylim([0, 1])
+    ax.set_ylabel('Score')
+    ax.set_title('Cosine Similarity Visualization')
+    st.pyplot(fig)
+
+    # Check if sentences are paraphrases based on the threshold
     if similarity_score > threshold:
         st.success("The sentences are likely paraphrases.")
     else:

@@ -20,7 +20,7 @@ def cosine_similarity(embedding1, embedding2):
     cos_sim = F.cosine_similarity(embedding1, embedding2)
     return cos_sim.item()
 
-# Adding custom CSS and JavaScript for animations
+# Add custom CSS and JavaScript for animations
 st.markdown("""
     <style>
         /* Full-screen background with floating numbers and alphabets */
@@ -66,25 +66,25 @@ st.markdown("""
             const container = document.body;
 
             // Generate numbers
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 10; i++) {
                 let number = document.createElement('div');
                 number.className = 'floating floating-number';
                 number.textContent = Math.floor(Math.random() * 10);
                 number.style.top = Math.random() * 100 + 'vh';
                 number.style.left = Math.random() * 100 + 'vw';
-                number.style.opacity = Math.random() * 0.5 + 0.3; // Random opacity
+                number.style.opacity = Math.random() * 0.5 + 0.3;
                 container.appendChild(number);
             }
 
             // Generate alphabets
             const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-            for (let i = 0; i < 20; i++) {
+            for (let i = 0; i < 10; i++) {
                 let letter = document.createElement('div');
                 letter.className = 'floating floating-alphabet';
                 letter.textContent = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
                 letter.style.top = Math.random() * 100 + 'vh';
                 letter.style.left = Math.random() * 100 + 'vw';
-                letter.style.opacity = Math.random() * 0.5 + 0.3; // Random opacity
+                letter.style.opacity = Math.random() * 0.5 + 0.3;
                 container.appendChild(letter);
             }
         }

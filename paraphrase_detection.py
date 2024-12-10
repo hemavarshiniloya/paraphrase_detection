@@ -23,14 +23,15 @@ def cosine_similarity(embedding1, embedding2):
     cos_sim = F.cosine_similarity(embedding1, embedding2)
     return cos_sim.item()
 
-# Streamlit app UI
-st.title('Real-Time Paraphrase Detection')
-st.write("Enter two sentences below to check if they are paraphrases.")
-
-# Adding icons
+# Adding icons to the title
 st.markdown("""
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     """, unsafe_allow_html=True)
+
+# Title with an icon
+st.markdown('<h1><i class="fas fa-exchange-alt"></i> Real-Time Paraphrase Detection</h1>', unsafe_allow_html=True)
+
+st.write("Enter two sentences below to check if they are paraphrases.")
 
 # Display an icon for the user input
 st.markdown('<i class="fas fa-comment-dots"></i> Enter sentences below:', unsafe_allow_html=True)

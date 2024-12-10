@@ -20,73 +20,76 @@ def cosine_similarity(embedding1, embedding2):
     cos_sim = F.cosine_similarity(embedding1, embedding2)
     return cos_sim.item()
 
-# Adding Font Awesome for icons
-st.markdown("""
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    """, unsafe_allow_html=True)
-
-# Custom background styling with animated balloon effect
+# Adding custom CSS and JavaScript for animations
 st.markdown("""
     <style>
+        /* Full-screen background with floating numbers and alphabets */
         body {
-            background-color: #f0f8ff; /* Light blue */
-            color: #333;
-            font-family: 'Arial', sans-serif;
-            overflow: hidden; /* Prevent scrollbars */
+            overflow: hidden;
+            position: relative;
         }
-        .balloon {
+        .floating {
             position: absolute;
-            width: 50px;
-            height: 70px;
-            background-color: #FF6347; /* Balloon color */
-            border-radius: 50%;
-            animation: floatUp 10s linear infinite;
-            opacity: 0.8;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 2rem;
+            animation: float 15s linear infinite;
         }
-        .balloon:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .balloon:nth-child(2) { left: 30%; animation-delay: 2s; }
-        .balloon:nth-child(3) { left: 50%; animation-delay: 4s; }
-        .balloon:nth-child(4) { left: 70%; animation-delay: 6s; }
-        .balloon:nth-child(5) { left: 90%; animation-delay: 8s; }
-
-        @keyframes floatUp {
+        .floating-number {
+            animation-duration: 20s;
+        }
+        .floating-alphabet {
+            animation-duration: 25s;
+        }
+        @keyframes float {
             0% {
-                transform: translateY(0);
+                top: 0;
+                left: 0;
+                transform: translate(0, 0);
             }
             100% {
-                transform: translateY(-100vh);
+                top: 100%;
+                left: 100%;
+                transform: translate(-100%, -100%);
             }
         }
-        .stButton>button {
-            background-color: #4CAF50; /* Green button */
-            color: white;
-            border-radius: 8px;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-        .stButton>button:hover {
-            background-color: #45a049; /* Darker green */
-        }
-        h1, h3 {
-            text-align: center;
-            color: #fff; /* White color for text */
+        /* Style for content */
+        .content {
+            position: relative;
+            z-index: 10;
         }
     </style>
-    """, unsafe_allow_html=True)
+    <script>
+        // Function to create floating numbers and alphabets
+        function createFloatingElements() {
+            const container = document.body;
 
-# Add balloon elements to the page
-st.markdown("""
-    <div class="balloon" style="left: 10%; top: 20%;"></div>
-    <div class="balloon" style="left: 30%; top: 40%;"></div>
-    <div class="balloon" style="left: 50%; top: 30%;"></div>
-    <div class="balloon" style="left: 70%; top: 60%;"></div>
-    <div class="balloon" style="left: 90%; top: 80%;"></div>
+            // Generate numbers
+            for (let i = 0; i < 20; i++) {
+                let number = document.createElement('div');
+                number.className = 'floating floating-number';
+                number.textContent = Math.floor(Math.random() * 10);
+                number.style.top = Math.random() * 100 + 'vh';
+                number.style.left = Math.random() * 100 + 'vw';
+                container.appendChild(number);
+            }
+
+            // Generate alphabets
+            const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            for (let i = 0; i < 20; i++) {
+                let letter = document.createElement('div');
+                letter.className = 'floating floating-alphabet';
+                letter.textContent = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                letter.style.top = Math.random() * 100 + 'vh';
+                letter.style.left = Math.random() * 100 + 'vw';
+                container.appendChild(letter);
+            }
+        }
+        window.onload = createFloatingElements;
+    </script>
     """, unsafe_allow_html=True)
 
 # Title with an icon
-st.markdown('<h1><i class="fas fa-exchange-alt"></i> Real-Time Paraphrase Detection</h1>', unsafe_allow_html=True)
+st.markdown('<h1 style="text-align: center;"><i class="fas fa-exchange-alt"></i> Real-Time Paraphrase Detection</h1>', unsafe_allow_html=True)
 
 st.write("Enter two sentences below to check if they are paraphrases.")
 
@@ -113,11 +116,11 @@ if st.button("Check Similarity"):
         threshold = 0.8
         if similarity_score > threshold:
             st.markdown(
-                "<h3 style='color: green;'>"
+                "<h3 style='color: green; text-align: center;'>"
                 "<i class='fas fa-check-circle'></i> The sentences are likely paraphrases! 😊"
                 "</h3>", unsafe_allow_html=True)
         else:
             st.markdown(
-                "<h3 style='color: red;'>"
+                "<h3 style='color: red; text-align: center;'>"
                 "<i class='fas fa-times-circle'></i> The sentences are not paraphrases. 😕"
                 "</h3>", unsafe_allow_html=True)

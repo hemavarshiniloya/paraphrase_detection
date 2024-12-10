@@ -1,11 +1,7 @@
+import streamlit as st
+from transformers import BertTokenizer, BertModel
 import torch
 import torch.nn.functional as F
-from transformers import BertTokenizer, BertModel
-from datasets import load_dataset
-from sklearn.metrics import accuracy_score
-
-# Load the MRPC dataset from the Hugging Face library
-dataset = load_dataset('glue', 'mrpc')
 
 # Load pre-trained BERT model and tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
@@ -24,34 +20,27 @@ def cosine_similarity(embedding1, embedding2):
     cos_sim = F.cosine_similarity(embedding1, embedding2)
     return cos_sim.item()
 
-# Function to predict if sentences are paraphrases based on a similarity threshold
-def predict_paraphrase(sentence1, sentence2, threshold=0.8):
+# Streamlit app UI
+st.title('Real-Time Paraphrase Detection')
+st.write("Enter two sentences below to check if they are paraphrases.")
+
+sentence1 = st.text_input("Enter the first sentence:")
+sentence2 = st.text_input("Enter the second sentence:")
+
+if sentence1 and sentence2:
+    # Get embeddings for the input sentences
     embedding1 = get_embeddings(sentence1)
     embedding2 = get_embeddings(sentence2)
-    similarity_score = cosine_similarity(embedding1, embedding2)
-    return 1 if similarity_score > threshold else 0, similarity_score
-
-# Function to evaluate model accuracy on a test dataset
-def evaluate_accuracy(test_data, threshold=0.8):
-    y_true = []
-    y_pred = []
-
-    for item in test_data:
-        sentence1 = item['sentence1']
-        sentence2 = item['sentence2']
-        label = item['label']
-        
-        prediction, _ = predict_paraphrase(sentence1, sentence2, threshold)
-        y_true.append(label)
-        y_pred.append(prediction)
     
-    accuracy = accuracy_score(y_true, y_pred)
-    return accuracy
+    # Calculate cosine similarity
+    similarity_score = cosine_similarity(embedding1, embedding2)
 
-# Use the test split of MRPC for evaluation
-test_data = dataset['test']
+    # Display similarity score
+    st.write(f"Cosine Similarity Score: {similarity_score:.2f}")
 
-# Evaluate and print the accuracy
-accuracy = evaluate_accuracy(test_data, threshold=0.8)
-print(f"Model Accuracy on MRPC Test Set: {accuracy:.2f}")
-
+    # Check if sentences are paraphrases based on a threshold
+    threshold = 0.8  # You can adjust this value based on your requirements
+    if similarity_score > threshold:
+        st.success("The sentences are likely paraphrases.")
+    else:
+        st.error("The sentences are not paraphrases.")

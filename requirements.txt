@@ -2,3 +2,5 @@ streamlit
 torch
 transformers
 spacy
+thinc
+cupy

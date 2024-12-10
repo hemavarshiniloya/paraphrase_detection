@@ -1,3 +1,6 @@
 streamlit
 transformers
 torch
+datasets
+scikit-learn
+

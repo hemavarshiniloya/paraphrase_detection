@@ -39,8 +39,9 @@ st.markdown('<i class="fas fa-comment-dots"></i> Enter sentences below:', unsafe
 sentence1 = st.text_input("Enter the first sentence:")
 sentence2 = st.text_input("Enter the second sentence:")
 
-# Button with an icon
-if st.button("Check Similarity <i class='fas fa-search'></i>", unsafe_allow_html=True):
+# Custom button using HTML and Streamlit's session state
+if st.markdown("<button id='check-btn'><i class='fas fa-search'></i> Check Similarity</button>", unsafe_allow_html=True):
+    # Check if sentences are provided before processing
     if sentence1 and sentence2:
         # Display progress bar while processing
         with st.spinner("Calculating similarity..."):

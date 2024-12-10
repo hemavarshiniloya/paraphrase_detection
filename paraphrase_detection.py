@@ -43,11 +43,32 @@ st.markdown("""
             animation: floatUp 10s linear infinite;
             opacity: 0.8;
         }
-        .balloon:nth-child(1) { left: 10%; animation-delay: 0s; }
-        .balloon:nth-child(2) { left: 30%; animation-delay: 2s; }
-        .balloon:nth-child(3) { left: 50%; animation-delay: 4s; }
-        .balloon:nth-child(4) { left: 70%; animation-delay: 6s; }
-        .balloon:nth-child(5) { left: 90%; animation-delay: 8s; }
+        .balloon.left {
+            left: 0;
+            animation: floatUpFromLeft 10s linear infinite;
+        }
+        .balloon.right {
+            right: 0;
+            animation: floatUpFromRight 10s linear infinite;
+        }
+
+        @keyframes floatUpFromLeft {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(100vw);
+            }
+        }
+
+        @keyframes floatUpFromRight {
+            0% {
+                transform: translateY(0) translateX(0);
+            }
+            100% {
+                transform: translateY(-100vh) translateX(-100vw);
+            }
+        }
 
         @keyframes floatUp {
             0% {
@@ -86,11 +107,11 @@ st.markdown("""
 
 # Add balloon elements to the page
 st.markdown("""
-    <div class="balloon" style="left: 10%; top: 20%;"></div>
-    <div class="balloon" style="left: 30%; top: 40%;"></div>
-    <div class="balloon" style="left: 50%; top: 30%;"></div>
-    <div class="balloon" style="left: 70%; top: 60%;"></div>
-    <div class="balloon" style="left: 90%; top: 80%;"></div>
+    <div class="balloon left" style="top: 10%; animation-delay: 0s;"></div>
+    <div class="balloon right" style="top: 20%; animation-delay: 2s;"></div>
+    <div class="balloon left" style="top: 40%; animation-delay: 4s;"></div>
+    <div class="balloon right" style="top: 60%; animation-delay: 6s;"></div>
+    <div class="balloon left" style="top: 80%; animation-delay: 8s;"></div>
     """, unsafe_allow_html=True)
 
 # Title with an icon and highlighted style

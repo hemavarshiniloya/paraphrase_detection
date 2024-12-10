@@ -32,9 +32,12 @@ st.markdown('<h1 style="text-align: center;"><i class="fas fa-exchange-alt"></i>
 
 st.write("Enter two sentences below to check if they are paraphrases.")
 
-# Input fields for sentences
-sentence1 = st.text_input("Enter the first sentence:")
-sentence2 = st.text_input("Enter the second sentence:")
+# Display icons for sentence inputs
+st.markdown("<h3><i class='fas fa-comment-alt'></i> Enter the first sentence:</h3>", unsafe_allow_html=True)
+sentence1 = st.text_input("")
+
+st.markdown("<h3><i class='fas fa-comment-alt'></i> Enter the second sentence:</h3>", unsafe_allow_html=True)
+sentence2 = st.text_input("")
 
 # Create a button using HTML/CSS for the "Check Similarity" action
 if st.markdown("<button style='background-color: #008CBA; color: white; border: none; border-radius: 5px; padding: 10px 20px; cursor: pointer;'><i class='fas fa-search'></i> Check Similarity</button>", unsafe_allow_html=True):

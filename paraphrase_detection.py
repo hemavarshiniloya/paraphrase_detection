@@ -27,6 +27,7 @@ st.markdown("""
         body {
             overflow: hidden;
             position: relative;
+            font-family: Arial, sans-serif;
         }
         .floating {
             position: absolute;
@@ -56,6 +57,7 @@ st.markdown("""
         .content {
             position: relative;
             z-index: 10;
+            color: #000;
         }
     </style>
     <script>
@@ -70,6 +72,7 @@ st.markdown("""
                 number.textContent = Math.floor(Math.random() * 10);
                 number.style.top = Math.random() * 100 + 'vh';
                 number.style.left = Math.random() * 100 + 'vw';
+                number.style.opacity = Math.random() * 0.5 + 0.3; // Random opacity
                 container.appendChild(number);
             }
 
@@ -81,6 +84,7 @@ st.markdown("""
                 letter.textContent = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
                 letter.style.top = Math.random() * 100 + 'vh';
                 letter.style.left = Math.random() * 100 + 'vw';
+                letter.style.opacity = Math.random() * 0.5 + 0.3; // Random opacity
                 container.appendChild(letter);
             }
         }

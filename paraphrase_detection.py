@@ -78,29 +78,30 @@ st.markdown("""
                 transform: translateY(-100vh);
             }
         }
-        .stButton>button {
-            background-color: #4CAF50; /* Green button */
-            color: white;
-            border-radius: 8px;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            font-size: 16px;
+
+        .flying-kiss {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translate(-50%, 0);
+            font-size: 50px;
+            animation: flyKiss 3s ease-in-out infinite;
+            opacity: 0.8;
         }
-        .stButton>button:hover {
-            background-color: #45a049; /* Darker green */
-        }
-        h1 {
-            text-align: center;
-            color: #fff; /* White color for text */
-            background: linear-gradient(90deg, #ff7eb3, #ff758c); /* Gradient background */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Shadow effect */
-        }
-        h3 {
-            text-align: center;
-            color: #333;
+
+        @keyframes flyKiss {
+            0% {
+                top: 50px;
+                transform: translate(-50%, 0);
+            }
+            50% {
+                top: -100px;
+                opacity: 1;
+            }
+            100% {
+                top: 50px;
+                opacity: 0.5;
+            }
         }
     </style>
     """, unsafe_allow_html=True)
@@ -145,6 +146,8 @@ if st.button("Check Similarity"):
                 "<h3 style='color: green;'>"
                 "<i class='fas fa-check-circle'></i> The sentences are likely paraphrases! 😊"
                 "</h3>", unsafe_allow_html=True)
+            st.markdown(
+                "<div class='flying-kiss'>💋</div>", unsafe_allow_html=True)
         else:
             st.markdown(
                 "<h3 style='color: red;'>"

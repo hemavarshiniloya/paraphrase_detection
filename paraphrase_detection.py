@@ -36,28 +36,30 @@ st.write("Enter two sentences below to check if they are paraphrases.")
 sentence1 = st.text_input("Enter the first sentence:")
 sentence2 = st.text_input("Enter the second sentence:")
 
-if sentence1 and sentence2:
-    # Display a progress bar while processing
-    with st.spinner("Calculating similarity..."):
-        # Get embeddings for the input sentences
-        embedding1 = get_embeddings(sentence1)
-        embedding2 = get_embeddings(sentence2)
-        
-        # Calculate cosine similarity
-        similarity_score = cosine_similarity(embedding1, embedding2)
+# Add a button with an icon to trigger the similarity check
+if st.button("Check Similarity <i class='fas fa-search'></i>", unsafe_allow_html=True):
+    if sentence1 and sentence2:
+        # Display a progress bar while processing
+        with st.spinner("Calculating similarity..."):
+            # Get embeddings for the input sentences
+            embedding1 = get_embeddings(sentence1)
+            embedding2 = get_embeddings(sentence2)
+            
+            # Calculate cosine similarity
+            similarity_score = cosine_similarity(embedding1, embedding2)
 
-    # Display similarity score
-    st.write(f"Cosine Similarity Score: {similarity_score:.2f}")
+        # Display similarity score
+        st.write(f"Cosine Similarity Score: {similarity_score:.2f}")
 
-    # Check if sentences are paraphrases based on a threshold
-    threshold = 0.8  # You can adjust this value based on your requirements
-    if similarity_score > threshold:
-        st.markdown(
-            "<h3 style='color: green; text-align: center;'>"
-            "<i class='fas fa-check-circle'></i> The sentences are likely paraphrases! 😊"
-            "</h3>", unsafe_allow_html=True)
-    else:
-        st.markdown(
-            "<h3 style='color: red; text-align: center;'>"
-            "<i class='fas fa-times-circle'></i> The sentences are not paraphrases. 😕"
-            "</h3>", unsafe_allow_html=True)
+        # Check if sentences are paraphrases based on a threshold
+        threshold = 0.8  # You can adjust this value based on your requirements
+        if similarity_score > threshold:
+            st.markdown(
+                "<h3 style='color: green; text-align: center;'>"
+                "<i class='fas fa-check-circle'></i> The sentences are likely paraphrases! 😊"
+                "</h3>", unsafe_allow_html=True)
+        else:
+            st.markdown(
+                "<h3 style='color: red; text-align: center;'>"
+                "<i class='fas fa-times-circle'></i> The sentences are not paraphrases. 😕"
+                "</h3>", unsafe_allow_html=True)

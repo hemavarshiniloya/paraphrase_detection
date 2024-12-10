@@ -25,8 +25,35 @@ st.markdown("""
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     """, unsafe_allow_html=True)
 
+# Custom background styling
+st.markdown("""
+    <style>
+        body {
+            background: linear-gradient(135deg, #a8c0ff, #3f2b96); /* Light gradient */
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+        .stButton>button {
+            background-color: #4CAF50; /* Green button */
+            color: white;
+            border-radius: 8px;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .stButton>button:hover {
+            background-color: #45a049; /* Darker green */
+        }
+        h1, h3 {
+            text-align: center;
+            color: #fff; /* White color for text */
+        }
+    </style>
+    """, unsafe_allow_html=True)
+
 # Title with an icon
-st.markdown('<h1 style="text-align: center;"><i class="fas fa-exchange-alt"></i> Real-Time Paraphrase Detection</h1>', unsafe_allow_html=True)
+st.markdown('<h1><i class="fas fa-exchange-alt"></i> Real-Time Paraphrase Detection</h1>', unsafe_allow_html=True)
 
 st.write("Enter two sentences below to check if they are paraphrases.")
 
@@ -53,11 +80,11 @@ if st.button("Check Similarity"):
         threshold = 0.8
         if similarity_score > threshold:
             st.markdown(
-                "<h3 style='color: green; text-align: center;'>"
+                "<h3 style='color: green;'>"
                 "<i class='fas fa-check-circle'></i> The sentences are likely paraphrases! 😊"
                 "</h3>", unsafe_allow_html=True)
         else:
             st.markdown(
-                "<h3 style='color: red; text-align: center;'>"
+                "<h3 style='color: red;'>"
                 "<i class='fas fa-times-circle'></i> The sentences are not paraphrases. 😕"
                 "</h3>", unsafe_allow_html=True)

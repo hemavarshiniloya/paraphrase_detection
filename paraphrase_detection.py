@@ -1,5 +1,5 @@
 import streamlit as st
-from transformers import BertTokenizer, BertModel, pipeline
+from transformers import BertTokenizer, BertModel
 import torch
 import torch.nn.functional as F
 
@@ -7,13 +7,11 @@ import torch.nn.functional as F
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
 bert_model = BertModel.from_pretrained('bert-base-uncased')
 
-# Load a pre-trained summarization model from Hugging Face's Transformers
-summarizer = pipeline('summarization')
-
 # Function to get sentence embeddings
 def get_embeddings(sentence):
     inputs = tokenizer(sentence, return_tensors='pt', padding=True, truncation=True, max_length=128)
     outputs = bert_model(**inputs)
+    # Mean pooling to get sentence embeddings
     sentence_embedding = outputs.last_hidden_state.mean(dim=1)
     return sentence_embedding
 
@@ -21,11 +19,6 @@ def get_embeddings(sentence):
 def cosine_similarity(embedding1, embedding2):
     cos_sim = F.cosine_similarity(embedding1, embedding2)
     return cos_sim.item()
-
-# Function to get a summary/meaning of the sentence
-def get_meaning(sentence):
-    summary = summarizer(sentence, max_length=50, min_length=10, do_sample=False)
-    return summary[0]['summary_text']
 
 # Streamlit app UI
 st.title('Real-Time Paraphrase Detection')
@@ -51,11 +44,3 @@ if sentence1 and sentence2:
         st.success("The sentences are likely paraphrases.")
     else:
         st.error("The sentences are not paraphrases.")
-
-    # Display the meanings/summaries of the sentences
-    st.subheader("Meanings of the Input Sentences")
-    st.write("Meaning of the first sentence:")
-    st.write(get_meaning(sentence1))
-
-    st.write("Meaning of the second sentence:")
-    st.write(get_meaning(sentence2))

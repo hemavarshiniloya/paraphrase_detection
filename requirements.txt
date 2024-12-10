@@ -1,4 +1,4 @@
 streamlit
-torch
 transformers
-
+torch
+scikit-learn

@@ -21,11 +21,11 @@ def cosine_similarity(embedding1, embedding2):
     return cos_sim.item()
 
 # Streamlit app UI
-st.title('Real-Time Paraphrase Detection')
+st.title(':mag_right: Real-Time Paraphrase Detection')
 st.write("Enter two sentences below to check if they are paraphrases.")
 
-sentence1 = st.text_input("Enter the first sentence:")
-sentence2 = st.text_input("Enter the second sentence:")
+sentence1 = st.text_input(":one: Enter the first sentence:")
+sentence2 = st.text_input(":two: Enter the second sentence:")
 
 if sentence1 and sentence2:
     # Get embeddings for the input sentences
@@ -36,11 +36,11 @@ if sentence1 and sentence2:
     similarity_score = cosine_similarity(embedding1, embedding2)
 
     # Display similarity score
-    st.write(f"Cosine Similarity Score: {similarity_score:.2f}")
+    st.write(f":bar_chart: **Cosine Similarity Score:** {similarity_score:.2f}")
 
     # Check if sentences are paraphrases based on a threshold
     threshold = 0.8  # You can adjust this value based on your requirements
     if similarity_score > threshold:
-        st.success("The sentences are likely paraphrases.")
+        st.success(":white_check_mark: The sentences are likely paraphrases.")
     else:
-        st.error("The sentences are not paraphrases.")
+        st.error(":x: The sentences are not paraphrases.")

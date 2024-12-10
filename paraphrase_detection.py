@@ -1,14 +1,11 @@
 import streamlit as st
+import spacy
 from transformers import BertTokenizer, BertModel, T5ForConditionalGeneration, T5Tokenizer
 import torch
 import torch.nn.functional as F
-import nltk
-from nltk.corpus import wordnet
-from nltk.tokenize import word_tokenize
 
-# Ensure that the NLTK data is downloaded for WordNet
-nltk.download('wordnet')
-nltk.download('punkt')
+# Load spaCy model
+nlp = spacy.load('en_core_web_md')
 
 # Load pre-trained BERT model and tokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
@@ -38,13 +35,17 @@ def generate_paraphrase(sentence):
     paraphrase = t5_tokenizer.decode(output[0], skip_special_tokens=True)
     return paraphrase
 
-# Function to find synonyms using WordNet
-def find_synonyms(word):
-    synonyms = set()
-    for syn in wordnet.synsets(word):
-        for lemma in syn.lemmas():
-            synonyms.add(lemma.name())
-    return list(synonyms)
+# Function to find similar words using spaCy
+def find_similar_words(word, threshold=0.7):
+    similar_words = []
+    token = nlp.vocab[word]
+    if token.has_vector:
+        for vocab_word in nlp.vocab:
+            if vocab_word.has_vector and vocab_word.is_lower and vocab_word != token:
+                similarity = token.similarity(vocab_word)
+                if similarity >= threshold:
+                    similar_words.append(vocab_word.text)
+    return list(set(similar_words))
 
 # Streamlit app UI
 st.title('Real-Time Paraphrase Detection')
@@ -73,12 +74,11 @@ if sentence1 and sentence2:
         paraphrase = generate_paraphrase(sentence1)
         st.write(f"Suggested Paraphrase: {paraphrase}")
         
-        # Find and display synonyms for important words in the sentences
-        words = word_tokenize(sentence1)
-        synonyms = {word: find_synonyms(word) for word in words if wordnet.synsets(word)}
-        st.write("Synonyms for important words in the sentence:")
-        for word, syns in synonyms.items():
-            if syns:
-                st.write(f"{word}: {', '.join(syns[:5])}")  # Display up to 5 synonyms per word
+        # Find and display similar words for important words in the sentences
+        words = sentence1.split()
+        for word in words:
+            similar_words = find_similar_words(word)
+            if similar_words:
+                st.write(f"Words similar to '{word}': {', '.join(similar_words[:5])}")  # Display up to 5 similar words
     else:
         st.error("The sentences are not paraphrases.")

@@ -9,11 +9,9 @@ bert_model = BertModel.from_pretrained('bert-base-uncased')
 
 # Function to get sentence embeddings
 def get_embeddings(sentence):
-    # Use torch.no_grad() to avoid calculating gradients during inference
     with torch.no_grad():
         inputs = tokenizer(sentence, return_tensors='pt', padding=True, truncation=True, max_length=128)
         outputs = bert_model(**inputs)
-        # Mean pooling to get sentence embeddings
         sentence_embedding = outputs.last_hidden_state.mean(dim=1)
     return sentence_embedding
 
@@ -39,23 +37,20 @@ sentence1 = st.text_input("Sentence 1", key="sentence1")
 st.markdown("<h3><i class='fas fa-comment-alt'></i> Enter the second sentence:</h3>", unsafe_allow_html=True)
 sentence2 = st.text_input("Sentence 2", key="sentence2")
 
-# Create a button using HTML/CSS for the "Check Similarity" action
-if st.button("Check Similarity <i class='fas fa-search'></i>", unsafe_allow_html=True):
+# Display a button and an icon separately
+if st.button("Check Similarity"):
+    st.markdown("<i class='fas fa-search'></i>", unsafe_allow_html=True)
     if sentence1 and sentence2:
-        # Display a progress bar while processing
         with st.spinner("Calculating similarity..."):
-            # Get embeddings for the input sentences
             embedding1 = get_embeddings(sentence1)
             embedding2 = get_embeddings(sentence2)
-            
-            # Calculate cosine similarity
             similarity_score = cosine_similarity(embedding1, embedding2)
 
         # Display similarity score
         st.write(f"Cosine Similarity Score: {similarity_score:.2f}")
 
         # Check if sentences are paraphrases based on a threshold
-        threshold = 0.8  # You can adjust this value based on your requirements
+        threshold = 0.8
         if similarity_score > threshold:
             st.markdown(
                 "<h3 style='color: green; text-align: center;'>"
